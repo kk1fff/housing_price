@@ -1,0 +1,3 @@
+1. Get data from Dept. of Land Administration. What we are using now are the XML files.
+2. build_table.py converts the XML files downloaded from the web site to a single large TSV file.
+   Usage: build_table.py <data-folder> <target file>
