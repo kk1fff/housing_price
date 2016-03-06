@@ -1,0 +1,20 @@
+{
+  "targets": [
+    {
+      "column_name": "樓層",
+      "ops": ["移轉層次"],
+      "operator": "ChineseFloorTransformer"
+    },
+    {
+      "column_name": "總樓層",
+      "ops": ["總樓層數"],
+      "operator": "ChineseFloorTransformer"
+    }
+  ],
+  "columns": [
+    "鄉鎮市區",
+    "土地移轉總面積平方公尺",
+    "建物型態",
+    "主要建材"
+  ]
+}
