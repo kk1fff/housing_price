@@ -128,7 +128,6 @@ def parse_one_table(filename, tmp):
     if filetype == None:
         return None    
     name = name.replace(".", "_")
-    print(name)
 
     try:
         col_collector = ColumnCollector(element_type)
@@ -155,7 +154,6 @@ def merge_table_by_key(tmp, main_table, support_tables):
         cols = load_header(tmp, n)
         key_pos = None
         for i in range(len(cols)):
-            print("'{}'".format(cols[i]))
             if cols[i] == MERGEING_KEY:
                 key_pos = i
         if key_pos == None:
@@ -174,7 +172,6 @@ def merge_table_by_key(tmp, main_table, support_tables):
     merged_header.append_one_header(main_table, cols)
     key_pos = None
     for i in range(len(cols)):
-        print("'{}'".format(cols[i]))
         if cols[i] == MERGEING_KEY:
             key_pos = i
     if key_pos == None:
