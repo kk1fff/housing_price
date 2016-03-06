@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse, json
+import chinese_table_transform_functions
 
 def line_to_cols(line):
     return list(map(lambda x: x.strip(), line.split('\t')))
@@ -10,12 +11,9 @@ def col_name_to_pos(col, names):
         d[c] = len(d)
     return list(map(d.get, names))
 
-def builder_ChineseFloorTransformer(ops):
-    return ops[0]
-
 class ColumnBuilder:
     Operator = {
-        "ChineseFloorTransformer": builder_ChineseFloorTransformer,
+        "ChineseFloorTransformer": chinese_table_transform_functions.builder_ChineseFloorTransformer,
     }
     def __init__(self, target_column, ops, operator):
         self._target = target_column
@@ -28,19 +26,29 @@ class ColumnBuilder:
         return self._target
 
 def filter_Includes(val, ops):
-    return val.find(ops[0]) >= 0
+    for v in ops:
+        if val.find(v) < 0:
+            return False
+    return True
+
+def filter_NotIncludes(val, ops):
+    for v in ops:
+        if val.find(v) >= 0:
+            return False
+    return True
         
 class ColumnFilter:
     Operator = {
-        "Includes": filter_Includes
+        "Includes": filter_Includes,
+        "NotIncludes": filter_NotIncludes
     }
     def __init__(self, target_column, ops, operator):
         self._target = target_column
         self._ops = ops
         self._operator = ColumnFilter.Operator[operator]        
     def do_filter(self, row):
-        row[self._target] = self._operator(row[self._target],
-                                           self._ops)
+        return self._operator(row[self._target],
+                              self._ops)
 
 def main():
     # 1. build new column.

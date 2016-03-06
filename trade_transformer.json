@@ -26,6 +26,11 @@
       "column_name": "交易標的",
       "ops": ["房地"],
       "operator": "Includes"
+    },
+    {
+      "column_name": "建物型態",
+      "ops": ["其他","透天厝"],
+      "operator": "NotIncludes"
     }
   ]
 }
